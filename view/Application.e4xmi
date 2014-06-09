@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ASCII"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmi:id="_AjWrMOEDEeO7OMJwvz08ng" elementId="gcviewer.application">
+  <children xsi:type="basic:Window" xmi:id="_BmzFMOEDEeO7OMJwvz08ng" elementId="gcviewer.window.0" label="Main Window">
+    <children xsi:type="basic:PartSashContainer" xmi:id="_F_SdYOT-EeOilL1cyPnXvA" elementId="gcviewer.partsashcontainer.0" horizontal="true">
+      <children xsi:type="basic:Part" xmi:id="_QuSV0OEQEeO7OMJwvz08ng" elementId="gcviewer.part.1" containerData="25" contributionURI="bundleclass://org.gcviewer.e4.view/org.gcviewer.e4.part.DebugPart"/>
+      <children xsi:type="basic:PartStack" xmi:id="_BDiBAOQtEeOMGaA_tY9sMg" elementId="gcviewer.partstack.0" containerData="75">
+        <children xsi:type="basic:Part" xmi:id="_jd6rcOEVEeO7OMJwvz08ng" elementId="gcviewer.part.0" contributionURI="bundleclass://org.gcviewer.e4.view/org.gcviewer.e4.part.MemoryGraphPart" label="Memory"/>
+        <children xsi:type="basic:Part" xmi:id="_DovIsOQtEeOMGaA_tY9sMg" elementId="gcviewer.part.2" contributionURI="bundleclass://org.gcviewer.e4.view/org.gcviewer.e4.part.CollectionGraphPart" label="Garbage Collection"/>
+      </children>
+    </children>
+  </children>
+  <addons xmi:id="_AjWrMeEDEeO7OMJwvz08ng" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_AjWrMuEDEeO7OMJwvz08ng" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_AjWrM-EDEeO7OMJwvz08ng" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_AjWrNOEDEeO7OMJwvz08ng" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_AjWrNeEDEeO7OMJwvz08ng" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_AjWrNuEDEeO7OMJwvz08ng" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+  <addons xmi:id="_AjWrN-EDEeO7OMJwvz08ng" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+</application:Application>

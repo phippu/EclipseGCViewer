@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.e4.ui.workbench.swt.E4Application"
+            name="product">
+         <property
+               name="appName"
+               value="product">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="view"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.e4.ui.workbench.swt.E4Application"
+            name="product">
+         <property
+               name="appName"
+               value="product">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="gcviewer"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.e4.ui.workbench.swt.E4Application"
+            name="product">
+         <property
+               name="appName"
+               value="product">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="product2"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.e4.ui.workbench.swt.E4Application"
+            name="product">
+         <property
+               name="appName"
+               value="product">
+         </property>
+      </product>
+   </extension>
+ 
+
+</plugin>
