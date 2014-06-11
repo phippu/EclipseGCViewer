@@ -14,7 +14,6 @@ public class DebugMessagePart {
 	
 	
 	public void createControls(Composite parent) {
-		controller.debugMessage = this;
 		debugText = new Text(parent, SWT.MULTI | SWT.BORDER | SWT.WRAP
 				| SWT.V_SCROLL);
 		debugText.setSize(100, 50);
@@ -27,6 +26,7 @@ public class DebugMessagePart {
 		data.verticalSpan = 2;
 		data.horizontalSpan = 2;
 		debugText.setLayoutData(data);
+		controller.registerDebugMessagePart(this);
 	}
 
 	public void logMessage(String message) {

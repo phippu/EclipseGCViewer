@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.inject.Singleton;
-
 import org.gcviewer.e4.part.DebugMessagePart;
 import org.gcviewer.e4.part.IGraphPart;
 
@@ -16,8 +14,8 @@ import com.tagtraum.perf.gcviewer.model.GCModel;
 
 public class Controller {
 
-	public DebugMessagePart debugMessage;
-	public GCModel model;
+	private DebugMessagePart debugMessagePart;
+	private GCModel model;
 	private static Controller controller;
 	public static Controller getInstance(){
 		if(controller ==null)controller=new Controller();
@@ -75,8 +73,9 @@ public class Controller {
 
 
 	public void log(String message) {
-		debugMessage.logMessage(message);
-		debugMessage.logMessage(message);
+		if(debugMessagePart!=null){
+		debugMessagePart.logMessage(message);
+		debugMessagePart.logMessage(message);}
 	}
 
 	List<IGraphPart> graphs = new ArrayList<IGraphPart>();
@@ -90,6 +89,9 @@ public class Controller {
 
 	public void axisChange(double lower, double upper) {
 System.out.println("Lower: " + lower + " Upper: "+ upper);		
+	}
+	public void registerDebugMessagePart(DebugMessagePart debugMessagePart) {
+		this.debugMessagePart = debugMessagePart;
 	}
 
 	
