@@ -1,41 +1,42 @@
 package org.gcviewer.e4;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Singleton;
 
-import org.eclipse.e4.core.di.annotations.Creatable;
 import org.gcviewer.e4.part.DebugMessagePart;
 import org.gcviewer.e4.part.IGraphPart;
 
 import com.tagtraum.perf.gcviewer.imp.DataReaderException;
-import com.tagtraum.perf.gcviewer.imp.DataReaderFacade;
 import com.tagtraum.perf.gcviewer.imp.EclipseDataReaderFacade;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 
-@Creatable
-@Singleton
 public class Controller {
 
 	public DebugMessagePart debugMessage;
 	public GCModel model;
-
-	public Controller() {
+	private static Controller controller;
+	public static Controller getInstance(){
+		if(controller ==null)controller=new Controller();
+		return controller;
+	}
+	private Controller() {
 			System.out.println("controller constructed");
-			loadFile("/Users/philipp/Documents/jdigger_workstpace/gcviewer/test.txt");
+			loadFile(new File("/Users/philipp/Documents/jdigger_workstpace/gcviewer/test.txt"));
 			
 	}
 
-	public void loadFile(String fileName){
+	public void loadFile(File file){
 		  EclipseDataReaderFacade dataReaderFacade = new EclipseDataReaderFacade();
 		     try {
-				model = dataReaderFacade.loadModel(fileName, false, null);
+				model = dataReaderFacade.loadModel(file.getAbsolutePath(), false, null);
 				fireModelChange();
 
 			} catch (DataReaderException e) {
-				log("cannot load file" + fileName);
+				log("cannot load file" + file);
 				e.printStackTrace();
 			}
 	}

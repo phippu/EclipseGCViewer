@@ -26,8 +26,7 @@ import com.tagtraum.perf.gcviewer.model.GCModel;
 
 public class MemoryGraphPart implements IGraphPart {
 	Composite parent;
-	@Inject
-	Controller controller;
+	Controller controller = Controller.getInstance(); 
 	public GCViewerGraph xyGraph;
 
 	Trace trace;

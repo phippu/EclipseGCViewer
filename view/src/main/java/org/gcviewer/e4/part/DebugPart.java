@@ -1,8 +1,11 @@
 package org.gcviewer.e4.part;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -28,8 +31,9 @@ import org.eclipse.swt.widgets.Text;
 import org.gcviewer.e4.Controller;
 
 public class DebugPart {
+	final Map<String,File> fileMap = new HashMap<String,File>();
 
-	@Inject  Controller controller; 
+	Controller controller = Controller.getInstance(); 
 	@Inject DebugMessagePart debugMessagePart;
 	@PostConstruct
 	public void createControls(Composite parent) {
@@ -54,8 +58,8 @@ public class DebugPart {
 			@Override
 			public void handleEvent(Event arg0) {
 				if (fileList.getSelectionCount() == 1) {
-					final String loadedFile = fileList.getSelection()[0];
-					controller.loadFile(loadedFile);
+					final String selectedFile = fileList.getSelection()[0];
+					controller.loadFile(fileMap.get(selectedFile));
 				}
 			}
 		});
@@ -71,16 +75,15 @@ public class DebugPart {
 			public void widgetSelected(SelectionEvent e) {
 				final String fileName = dialog.open();
 				if (fileName != null) {
-					fileList.add(fileName);
-					controller.loadFile(fileName);
+					File file = new File(fileName);
+					fileMap.put(file.getName(), file);
+					fileList.add(file.getName());
+					controller.loadFile(file);
 				}
 			}
 		});
 
 		final Button remove = new Button(parent, SWT.OPEN | SWT.NONE);
-
-		// fileNameText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-		// false, 2, 1));
 		remove.setText("remove");
 		remove.addSelectionListener(new SelectionListener() {
 
@@ -91,9 +94,9 @@ public class DebugPart {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if (fileList.getSelectionIndex() > -1) {
+				if (fileList.getSelectionIndex() > -1 && fileList.getSelectionCount() == 1) {
+					fileMap.remove(fileList.getSelection()[0]);					
 					fileList.remove(fileList.getSelectionIndex());
-					
 				}
 			}
 		});

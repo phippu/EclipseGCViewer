@@ -1,7 +1,5 @@
 package org.gcviewer.e4.part;
 
-import javax.inject.Inject;
-
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -12,7 +10,7 @@ import org.gcviewer.e4.Controller;
 @Creatable
 public class DebugMessagePart {
 	Text debugText;
-	@Inject Controller controller;
+	Controller controller = Controller.getInstance(); 
 	
 	
 	public void createControls(Composite parent) {
