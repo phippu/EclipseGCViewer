@@ -25,6 +25,7 @@ import com.tagtraum.perf.gcviewer.model.GCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 
 public class MemoryGraphPart implements IGraphPart {
+	private static final int BUFFER_SIZE = 1024*1024;
 	Composite parent;
 	Controller controller = Controller.getInstance(); 
 	public GCViewerGraph xyGraph;
@@ -38,19 +39,21 @@ public class MemoryGraphPart implements IGraphPart {
 		this.parent = parent;
 	}
 
+	LightweightSystem lws ;
+	
 	@PostConstruct
 	public void createControls() throws DataReaderException {
-		final LightweightSystem lws = new LightweightSystem(new Canvas(parent,
+		 this.lws = new LightweightSystem(new Canvas(parent,
 				SWT.NONE));
-		xyGraph = new GCViewerGraph("Memory Usage", "Time", "MB");
-		xyGraph.primaryXAxis.addListener(new GCViewerAxisChanger(controller));
-
-		final ToolbarArmedXYGraph toolbarArmedXYGraph = new ToolbarArmedXYGraph(
-				xyGraph);
-		lws.getRootFigure().add(toolbarArmedXYGraph);
-		lws.setContents(xyGraph);
+		 xyGraph = new GCViewerGraph("Memory Usage", "Time", "MB");
+			xyGraph.primaryXAxis.addListener(new GCViewerAxisChanger(controller));
+			 final ToolbarArmedXYGraph toolbarArmedXYGraph = new ToolbarArmedXYGraph(
+						xyGraph);
+				lws.getRootFigure().add(toolbarArmedXYGraph);
+				
+			lws.setContents(xyGraph);
+			
 		controller.registerGraph(this);
-	
 
 	}
 
@@ -58,22 +61,29 @@ public class MemoryGraphPart implements IGraphPart {
 	public void showModel(GCModel model, boolean isDatestamp, Date startTime) {
 		xyGraph.clear();
 		xyGraph.setDateEnabled(isDatestamp);
-
+		
 		final CircularBufferDataProvider trace1Provider = new CircularBufferDataProvider(
 				true);
 		final CircularBufferDataProvider trace2Provider = new CircularBufferDataProvider(
 				true);
-		final Iterator<GCEvent> gcEvents = model.getGCEvents();
-		while (gcEvents.hasNext()) {
-			final GCEvent gcEvent = gcEvents.next();
-			trace1Provider.addSample(new Sample(GCViewerUtil.getTime(gcEvent,isDatestamp,startTime),
-					gcEvent.getPreUsed() / 1024));
-			trace2Provider.addSample(new Sample(GCViewerUtil.getTime(gcEvent,isDatestamp,startTime),
-					gcEvent.getTotal() / 1024));
+		trace1Provider.setBufferSize(BUFFER_SIZE);
+		trace2Provider.setBufferSize(BUFFER_SIZE);
 
+		final Iterator<GCEvent> gcEvents = model.getGCEvents();
+	
+int n=0;
+while (gcEvents.hasNext()) {
+			final GCEvent gcEvent = gcEvents.next();
+			double l =GCViewerUtil.getTime(gcEvent,isDatestamp,startTime);
+			trace1Provider.addSample(new Sample(l,
+					gcEvent.getPreUsed() / 1024));
+			trace2Provider.addSample(new Sample(l,
+					gcEvent.getTotal() / 1024));
+n++;
 			// traceProvider.addSample(new Sample(GCViewerUtil.getTime(gcEvent),
 			// gcEvent.getPause()));
 		}
+		System.out.println("SAMPLES ADDED: " +n);
 
 		final Trace trace1 = new GCViewerTrace("Memory Used",
 				xyGraph.primaryXAxis, xyGraph.primaryYAxis, trace1Provider);

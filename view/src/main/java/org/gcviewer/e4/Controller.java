@@ -2,6 +2,7 @@ package org.gcviewer.e4;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,8 @@ public class Controller {
 		  EclipseDataReaderFacade dataReaderFacade = new EclipseDataReaderFacade();
 		     try {
 				model = dataReaderFacade.loadModel(file.getAbsolutePath(), false, null);
+				System.out.println("MODEL START TIME: " +model.getFirstPauseTimeStamp());
+				System.out.println("MODEL END TIME: " +model.getLastPauseTimeStamp());
 				fireModelChange();
 
 			} catch (DataReaderException e) {
@@ -78,12 +81,11 @@ public class Controller {
 		debugMessagePart.logMessage(message);}
 	}
 
-	List<IGraphPart> graphs = new ArrayList<IGraphPart>();
+	private List<IGraphPart> graphs =  Collections.synchronizedList(new ArrayList<IGraphPart>());
 	
 	public void registerGraph(IGraphPart memoryGraphPart) {
 		graphs.add(memoryGraphPart);
 		System.out.println("add graph part");
-		fireModelChange();
 
 	}
 

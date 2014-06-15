@@ -28,6 +28,9 @@ import com.tagtraum.perf.gcviewer.model.GCModel;
 public class CollectionGraphPart implements IGraphPart {
 	Composite parent;
 	Controller controller = Controller.getInstance(); 
+	private static final int BUFFER_SIZE = 1024*1024;
+
+	
 	public GCViewerGraph xyGraph;
 
 	Trace trace;
@@ -61,6 +64,7 @@ public class CollectionGraphPart implements IGraphPart {
 		xyGraph.setDateEnabled(isDatestamp);
 		final CircularBufferDataProvider traceProvider = new CircularBufferDataProvider(
 				true);
+		traceProvider.setBufferSize(BUFFER_SIZE);
 		final Iterator<GCEvent> gcEvents = model.getGCEvents();
 		while (gcEvents.hasNext()) {
 			final GCEvent gcEvent = gcEvents.next();
